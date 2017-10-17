@@ -15,21 +15,24 @@ This is a tool to test HTTP Communication
 
 ## command arguments 
 
+```
 php client.php ${your_server_url} ${user_count} ${request_count} ${is_post}
 
 ${your_server_url}: test server address
 ${user_count}: how many user request sametims
 ${request_count}: request count per user
 ${is_post}: if is "true", it will post a image names 'example.jpg' to server, if not, it will send get request.
+```
 
 When get a post request, server will find 'img' field and save the image to '/upload/' directory, if not, it will sleep between 0 and 10 second.
 
 ## result 
 
+```
 RequestTime： client to server to lost time (s)
 ServerLostTime： dispose business lost time (s)
 ResponseTime： server to client to lost time (s)
-
+```
 
 
 
