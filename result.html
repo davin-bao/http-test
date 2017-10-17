@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="Chart.min.js"></script>
+</head>
+<body>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script lang="text/javascript">
+    (function(){
+        var ctx = document.getElementById("myChart").getContext("2d");
+
+        function draw(labels, clientRequestTime, serverTime, clientResponseTime){
+            var chartData = {
+                labels : labels,
+                datasets : [
+                    {
+                        label: 'RequestTime',
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        data : clientRequestTime
+                    },
+                    {
+                        label: 'ServerLostTime',
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : serverTime
+                    },
+                    {
+                        label: 'ResponseTime',
+                        fillColor : "rgba(205,151,187,0.5)",
+                        strokeColor : "rgba(205,151,187,1)",
+                        data : clientResponseTime
+                    }
+                ]
+            };
+            var myNewChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {}
+            });
+        };
+
+        $.getJSON ("server_data.json", function (serverData) {
+            $.getJSON ("client_data.json", function (data) {
+                var clientRequestTime = [], serverTime = [], clientResponseTime = [], labels = [];
+
+                $.each (data, function (i, clientItem) {
+                    $.each (clientItem, function (clientId, subClientItem) {
+                        $.each (serverData, function (j, serverItem) {
+                            $.each (serverItem, function (serverId, subServerItem) {
+                                console.log(clientId, serverId);
+                                if(clientId == serverId){
+                                    labels.push(clientId);
+                                    clientRequestTime.push(subServerItem.request - subClientItem.request);
+                                    serverTime.push(subServerItem.response - subClientItem.request);
+                                    clientResponseTime.push(subClientItem.response - subServerItem.response);
+                                }
+                            });
+                        });
+                    });
+                });
+
+                draw(labels, clientRequestTime, serverTime, clientResponseTime);
+            });
+
+        });
+
+    })();
+</script>
+</body>
+</html>

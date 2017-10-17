@@ -1,0 +1,13 @@
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+/.idea
+/composer.lock
+packages
+storage/docs
+/app/Providers/DnsServer/Config/production
+/app/Providers/Upstream/Config/production
+/app/Providers/ValidateServer/Config/production
+/app/Providers/RegistryServer/Config/production
+/*.json
