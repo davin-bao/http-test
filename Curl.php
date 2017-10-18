@@ -19,8 +19,8 @@ class Curl {
         Recorder::request('ID_'. $id);
         $body = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        Recorder::response('ID_'. $id);
         curl_close($ch);
+        Recorder::response('ID_'. $id);
 
         if($httpCode > 199 && $httpCode < 299) {
             $bodyDecode = json_decode($body, true);
@@ -48,8 +48,8 @@ class Curl {
         Recorder::request('ID_'. $id);
         $body = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        Recorder::response('ID_'. $id);
         curl_close($ch);
+        Recorder::response('ID_'. $id);
 
         $body = json_decode($body);
 
