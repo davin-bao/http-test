@@ -1,7 +1,7 @@
 <?php
 namespace Common;
 
-use HttpResponseException;
+use \Exception;
 
 /**
  * User: davin.bao
@@ -27,12 +27,12 @@ class Curl {
             return is_null($bodyDecode) ? $body : $bodyDecode;
         }else if($httpCode >99 && $httpCode < 600) {
             $body = json_decode($body, true);
-            throw new HttpResponseException($body['message']);
+            throw new Exception($body['message']);
         }else if($httpCode == 0 || $body == false){
-            throw new HttpResponseException("The node can't connect");
+            throw new Exception("The node can't connect");
         }
 
-        throw new HttpResponseException($body, $httpCode);
+        throw new Exception($body, $httpCode);
     }
 
     public static function HttpPost($id, $params, $uri = null){
@@ -55,7 +55,7 @@ class Curl {
         $body = json_decode($body);
 
         if($httpCode > 299) {
-            throw new HttpResponseException($httpCode, $body->message);
+            throw new Exception($httpCode, $body->message);
         } else {
             return $body;
         }

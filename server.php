@@ -1,6 +1,11 @@
 <?php
 require 'Recorder.php';
-mkdir('uploads');
+if(!is_dir('uploads')){
+    mkdir('uploads');
+}
+if(!isset($_REQUEST['id'])){
+    throw new Exception('missing id parameter');
+}
 
 $id =$_REQUEST['id'];
 \Common\Recorder::$dataPath = 'server_data.json';
