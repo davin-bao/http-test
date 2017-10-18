@@ -26,6 +26,9 @@ class Recorder
     }
 
     public static function all(){
+        if(!file_exists(static::$dataPath)){
+            static::put([]);
+        }
         return json_decode(file_get_contents(static::$dataPath));
     }
 

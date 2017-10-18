@@ -29,7 +29,7 @@ class Curl {
             $body = json_decode($body, true);
             throw new Exception($body['message']);
         }else if($httpCode == 0 || $body == false){
-            throw new Exception("The node can't connect");
+            throw new Exception("The test server can't connect");
         }
 
         throw new Exception($body, $httpCode);
