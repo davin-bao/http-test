@@ -52,11 +52,10 @@
                     $.each (clientItem, function (clientId, subClientItem) {
                         $.each (serverData, function (j, serverItem) {
                             $.each (serverItem, function (serverId, subServerItem) {
-                                console.log(clientId, serverId);
                                 if(clientId == serverId){
                                     labels.push(clientId);
                                     clientRequestTime.push(subServerItem.request - subClientItem.request);
-                                    serverTime.push(subServerItem.response - subClientItem.request);
+                                    serverTime.push(subServerItem.response - subServerItem.request);
                                     clientResponseTime.push(subClientItem.response - subServerItem.response);
                                 }
                             });

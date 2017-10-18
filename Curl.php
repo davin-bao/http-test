@@ -26,8 +26,7 @@ class Curl {
             $bodyDecode = json_decode($body, true);
             return is_null($bodyDecode) ? $body : $bodyDecode;
         }else if($httpCode >99 && $httpCode < 600) {
-            $body = json_decode($body, true);
-            throw new Exception($body['message']);
+            throw new Exception($body);
         }else if($httpCode == 0 || $body == false){
             throw new Exception("The test server can't connect");
         }

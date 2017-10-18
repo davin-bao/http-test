@@ -33,8 +33,11 @@ class Recorder
     }
 
     public static function put($value){
-        $cache = json_decode(file_get_contents(static::$dataPath));
-        $cache = is_array($cache) ? $cache : [];
+        if(file_exists(static::$dataPath)) {
+            $cache = json_decode(file_get_contents(static::$dataPath));
+        }else {
+            $cache = [];
+        }
         array_push($cache, $value);
         file_put_contents(static::$dataPath, json_encode($cache));
     }
